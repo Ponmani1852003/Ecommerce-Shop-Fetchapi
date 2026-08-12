@@ -32,7 +32,7 @@ export default function Login() {
       <div className="bg-white border rounded-lg p-6 shadow-sm">
         <h1 className="text-2xl font-bold mb-1 text-center">Login</h1>
         <p className="text-sm text-gray-500 text-center mb-6">
-          Try: <span className="font-mono">mor_2314</span> / <span className="font-mono">83r5^_</span>
+         
         </p>
 
         {error && <ErrorMessage message={error} />}
