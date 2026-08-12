@@ -1,6 +1,6 @@
 import axios from "axios";
 import type { Product } from "../types/Product";
-import type { LoginPayload, LoginResponse } from "../types/User";
+import type { LoginPayload, LoginResponse, RegisterPayload, User } from "../types/User";
 
 const api = axios.create({
   baseURL: "https://fakestoreapi.com",
@@ -28,5 +28,10 @@ export async function getProductsByCategory(category: string): Promise<Product[]
 
 export async function loginUser(payload: LoginPayload): Promise<LoginResponse> {
   const response = await api.post("/auth/login", payload);
+  return response.data;
+}
+
+export async function registerUser(payload: RegisterPayload): Promise<User> {
+  const response = await api.post("/users", payload);
   return response.data;
 }

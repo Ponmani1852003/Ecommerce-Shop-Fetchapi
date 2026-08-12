@@ -2,13 +2,11 @@ import { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { useCart } from "../context/CartContext";
 import { useWishlist } from "../context/WishlistContext";
-import { useAuth } from "../context/AuthContext";
 
 export default function Navbar() {
   const [menuOpen, setMenuOpen] = useState(false);
   const { totalItems } = useCart();
   const { wishlist } = useWishlist();
-  const { isAuthenticated, logout } = useAuth();
   const location = useLocation();
 
   function linkClass(path: string) {
@@ -24,11 +22,10 @@ export default function Navbar() {
           ShopEasy
         </Link>
 
-        <div className="hidden md:flex items-center gap-6">
+        <div className="hidden md:flex items-center gap-5">
           <Link to="/" className={linkClass("/")}>Home</Link>
 
           <Link to="/wishlist" className={`flex items-center gap-1.5 ${linkClass("/wishlist")}`}>
-          <span>Wishlist</span>
             <span className="relative text-xl">
               💚
               {wishlist.length > 0 && (
@@ -37,11 +34,10 @@ export default function Navbar() {
                 </span>
               )}
             </span>
-            
+            <span>Wishlist</span>
           </Link>
 
           <Link to="/cart" className={`flex items-center gap-1.5 ${linkClass("/cart")}`}>
-          <span>Cart</span>
             <span className="relative text-xl">
               🛒
               {totalItems > 0 && (
@@ -50,16 +46,17 @@ export default function Navbar() {
                 </span>
               )}
             </span>
-            
+            <span>Cart</span>
           </Link>
 
-          {isAuthenticated ? (
-            <button onClick={logout} className="text-gray-700 hover:text-blue-600">
-              Logout
-            </button>
-          ) : (
-            <Link to="/login" className={linkClass("/login")}>Login</Link>
-          )}
+          <Link to="/register" className={linkClass("/register")}>Register</Link>
+
+          <Link to="/login" className={linkClass("/login")}>Login</Link>
+          <Link to="/profile" className={linkClass("/profile")}>
+            Profile
+          </Link>
+
+
         </div>
 
         <button
@@ -76,7 +73,6 @@ export default function Navbar() {
           <Link to="/" className={linkClass("/")} onClick={() => setMenuOpen(false)}>Home</Link>
 
           <Link to="/wishlist" className="flex items-center gap-2" onClick={() => setMenuOpen(false)}>
-          <span>Wishlist</span>
             <span className="relative text-xl">
               💚
               {wishlist.length > 0 && (
@@ -85,11 +81,10 @@ export default function Navbar() {
                 </span>
               )}
             </span>
-            
+            <span>Wishlist</span>
           </Link>
 
           <Link to="/cart" className="flex items-center gap-2" onClick={() => setMenuOpen(false)}>
-           <span>Cart</span>
             <span className="relative text-xl">
               🛒
               {totalItems > 0 && (
@@ -98,16 +93,16 @@ export default function Navbar() {
                 </span>
               )}
             </span>
-           
+            <span>Cart</span>
+          </Link>
+          <Link to="/register" className={linkClass("/register")} onClick={() => setMenuOpen(false)}>Register</Link>
+          <Link to="/login" className={linkClass("/login")} onClick={() => setMenuOpen(false)}>Login</Link>
+          <Link to="/profile" className={linkClass("/profile")} onClick={() => setMenuOpen(false)}>
+            Profile
           </Link>
 
-          {isAuthenticated ? (
-            <button onClick={() => { logout(); setMenuOpen(false); }} className="text-left">
-              Logout
-            </button>
-          ) : (
-            <Link to="/login" className={linkClass("/login")} onClick={() => setMenuOpen(false)}>Login</Link>
-          )}
+
+
         </div>
       )}
     </nav>
